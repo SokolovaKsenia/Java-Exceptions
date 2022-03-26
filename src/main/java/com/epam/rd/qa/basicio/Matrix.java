@@ -30,7 +30,8 @@ public class Matrix {
 
     /**
      * Creates a matrix based on existing two-dimensional array
-     * @param values
+     *
+     * @param values two-dimensional array
      * @throws MatrixException if {@code rows} or {@code cols} less than 1
      */
     public Matrix(double[][] values) throws MatrixException {
@@ -53,22 +54,33 @@ public class Matrix {
 
     /**
      * Returns count of matrix rows.
-     * @return
+     *
+     * @return count of rows in the matrix
      */
     public int getRows() {
-        return rows;
+        try {
+            return rows;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MatrixException(e);
+        }
     }
 
     /**
      * Returns count of matrix columns
-     * @return
+     *
+     * @return count of columns in the matrix
      */
-    public int getColumns() {
-        return cols;
+    public int getColumns() throws MatrixException {
+        try {
+            return cols;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MatrixException(e);
+        }
     }
 
     /**
      * Returns an element via predetermined correct indexes.
+     *
      * @param row row index
      * @param col column index
      * @return the element via indexes
@@ -81,8 +93,9 @@ public class Matrix {
 
     /**
      * Sets new value via predetermined correct indexes.
-     * @param row row index
-     * @param col column index
+     *
+     * @param row   row index
+     * @param col   column index
      * @param value value to set
      * @throws MatrixException if index out of bounds
      */
@@ -94,6 +107,7 @@ public class Matrix {
     /**
      * Returns standard two-dimensional array out of matrix.
      * Any changes in the returned array will be reflected to internal array.
+     *
      * @return matrix values
      */
     public double[][] toArray() {
@@ -101,7 +115,7 @@ public class Matrix {
     }
 
     private void checkIndexes(int row, int col) throws MatrixException {
-        if (row >= rows || col >= cols) {
+        if (row >= rows || col >= cols || row < 0 || col < 0) {
             throw new MatrixException("row=" + row + ", column=" + col);
         }
     }
@@ -109,6 +123,7 @@ public class Matrix {
     /**
      * Adds all elements of {@code other} matrix to corresponding elements
      * of this matrix and creates new {@code Matrix} with resulting two-dimensional array
+     *
      * @param other another {@code Matrix} object
      * @return new matrix
      * @throws MatrixException if matrices have different size
@@ -127,6 +142,7 @@ public class Matrix {
     /**
      * Subtract all elements of {@code other} matrix from corresponding elements
      * of this matrix and creates new {@code Matrix} with resulting two-dimensional array
+     *
      * @param other another {@code Matrix} object
      * @return new matrix
      * @throws MatrixException if matrices have different size
@@ -147,6 +163,7 @@ public class Matrix {
      * See
      * <a href="https://en.wikipedia.org/wiki/Matrix_multiplication">Matrix multiplication</a>
      * <a href="https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm">Matrix multiplication algorithm</a>
+     *
      * @param other another matrix
      * @return new matrix
      * @throws MatrixException if matrices have non-compliant sizes
