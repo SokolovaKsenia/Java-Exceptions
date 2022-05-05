@@ -1,12 +1,10 @@
 package com.epam.rd.qa.basicio;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MatrixTest {
     double[][] values = {{1, 2, 3}, {3, 2, 1}};
@@ -40,17 +38,25 @@ class MatrixTest {
 
     @Test
     void testGetShouldThrow() {
-        assertThrows(MatrixException.class, () -> matrix.get(matrix.getRows(), matrix.getColumns() - 1));
-        assertThrows(MatrixException.class, () -> matrix.get(matrix.getRows() - 1, matrix.getColumns()));
-        assertThrows(MatrixException.class, () -> matrix.get(-1, 0));
-        assertThrows(MatrixException.class, () -> matrix.get(0, -1));
+        assertThrows(MatrixException.class, () -> matrix.get(matrix.getRows(), matrix.getColumns() - 1),
+                "You should wrap original exception into your own exception or verify parameters manually");
+        assertThrows(MatrixException.class, () -> matrix.get(matrix.getRows() - 1, matrix.getColumns()),
+                "You should wrap original exception into your own exception or verify parameters manually");
+        assertThrows(MatrixException.class, () -> matrix.get(-1, 0),
+                "You should wrap original exception into your own exception or verify parameters manually");
+        assertThrows(MatrixException.class, () -> matrix.get(0, -1),
+                "You should wrap original exception into your own exception or verify parameters manually");
     }
 
     @Test
     void testSetShouldThrow() {
-        assertThrows(MatrixException.class, () -> matrix.set(matrix.getRows(), matrix.getColumns() - 1, 0));
-        assertThrows(MatrixException.class, () -> matrix.set(matrix.getRows() - 1, matrix.getColumns(), 0));
-        assertThrows(MatrixException.class, () -> matrix.set(-1, 0, 0));
-        assertThrows(MatrixException.class, () -> matrix.set(0, -1, 0));
+        assertThrows(MatrixException.class, () -> matrix.set(matrix.getRows(), matrix.getColumns() - 1, 0),
+                "You should check values before set");
+        assertThrows(MatrixException.class, () -> matrix.set(matrix.getRows() - 1, matrix.getColumns(), 0),
+                "You should check values before set");
+        assertThrows(MatrixException.class, () -> matrix.set(-1, 0, 0),
+                "You should check values before set");
+        assertThrows(MatrixException.class, () -> matrix.set(0, -1, 0),
+                "You should check values before set");
     }
 }

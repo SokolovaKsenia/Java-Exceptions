@@ -1,7 +1,5 @@
 package com.epam.rd.qa.basicio;
 
-import java.util.Arrays;
-
 /**
  * Encapsulates two-dimensional array-matrix block of real ({@code double}) type.
  * {@code Matrix} is the cover for two-dimensional array of real values, storing matrix
@@ -45,7 +43,7 @@ public class Matrix {
      *
      * @return count of columns in the matrix
      */
-    public int getColumns() throws MatrixException {
+    public int getColumns() {
         throw new UnsupportedOperationException();
     }
 
