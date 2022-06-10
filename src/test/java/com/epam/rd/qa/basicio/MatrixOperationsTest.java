@@ -7,7 +7,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MatrixOperationsTest {
     static final Matrix EXPECTED1 = new Matrix(new double[][] {
@@ -111,9 +112,6 @@ class MatrixOperationsTest {
     @ParameterizedTest
     @MethodSource("casesAddMatrixShouldReturn")
     void testAddMatrixShouldReturn(Matrix m1, Matrix m2, Matrix expected) {
-        System.out.println("m1: " + m1);
-        System.out.println("m2: " + m2);
-        System.out.println("ex: " + expected);
         assertArrayEquals(expected.toArray(), m1.add(m2).toArray());
     }
 
@@ -158,9 +156,6 @@ class MatrixOperationsTest {
     @ParameterizedTest
     @MethodSource("casesSubMatrixShouldReturn")
     void testSubMatrixShouldReturn(Matrix m1, Matrix m2, Matrix expected) {
-        System.out.println("m1: " + m1);
-        System.out.println("m2: " + m2);
-        System.out.println("ex: " + expected);
         assertArrayEquals(expected.toArray(), m1.subtract(m2).toArray());
     }
 
@@ -205,9 +200,6 @@ class MatrixOperationsTest {
     @ParameterizedTest
     @MethodSource("casesMultipleMatrixShouldReturn")
     void testMultipleMatrixShouldReturn(Matrix m1, Matrix m2, Matrix expected) {
-        System.out.println("m1: " + m1);
-        System.out.println("m2: " + m2);
-        System.out.println("ex: " + expected);
         assertArrayEquals(expected.toArray(), m1.multiply(m2).toArray());
     }
 

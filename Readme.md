@@ -5,7 +5,7 @@ Expected time - 40 minutes
 
 ## Description
 
-To create type `Matrix`, which encapsulates two-dimensional array-matrix
+Create type `Matrix`, which encapsulates two-dimensional array-matrix
 block of real (`double`) type.
 `Matrix` is the cover for two-dimensional array of real values, storing matrix
 values with operations of matrix addition, deduction and multiplication.
@@ -29,10 +29,11 @@ Implementation of the following functionality is required in Matrix class:
 - Creating of empty matrix with predetermined number of rows and columns
   (all values in matrix equal to 0).
 - Creating of matrix based on existing two-dimensional array.
-- `getRows()` - returns number of matrix rows and columns.
+- `getRows()` - returns number of matrix rows.
 - `getColumns()` - returns number of matrix columns.
-- `toArray` - returns standard two-dimensional array out of matrix.
-- `get()` - returns the element using predetermined correct indexes.
+- `toArray()` - returns standard two-dimensional array out of matrix.
+- `get(int, int)` - returns the element using predetermined correct indexes.
+- `set(int, int, double)` - sets new value using predetermined correct indexes.
 - `add(Matrix)` - method of matrices addition. Should return a new `Matrix` object.
 - `subtract(Matrix)` - method of matrices deduction. Should return a new `Matrix` object.
 - `multily(Matrix)` - method of matrices multiplication. Should return a new `Matrix` object.

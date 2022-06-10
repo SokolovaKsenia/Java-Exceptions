@@ -1,6 +1,6 @@
 package com.epam.rd.qa.basicio;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -8,17 +8,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class MatrixConstructorsTest {
 
     @ParameterizedTest
     @MethodSource("casesCreateMatrixWithGivenRowsAndColsShouldCreate")
     void testCreateMatrixWithGivenRowsAndColsShouldCreate(int r, int c) {
-        Matrix m = null;
-        try {
-            m = new Matrix(r, c);
-        } catch (MatrixException e) {
-            e.printStackTrace();
-        }
+        Matrix m = new Matrix(r, c);
         assertEquals(r, m.getRows());
         assertEquals(c, m.getColumns());
     }
@@ -52,12 +50,7 @@ class MatrixConstructorsTest {
     @ParameterizedTest
     @MethodSource("casesCreateMatrixWithGivenArrayShouldCreate")
     void testCreateMatrixWithGivenArrayShouldCreate(double[][] expected) {
-        Matrix m = null;
-        try {
-            m = new Matrix(expected);
-        } catch (MatrixException e) {
-            e.printStackTrace();
-        }
+        Matrix m = new Matrix(expected);
         assertEquals(expected, m.toArray());
     }
 
@@ -78,6 +71,11 @@ class MatrixConstructorsTest {
         assertThrows(MatrixException.class, () -> new Matrix(values));
     }
 
+    @Test
+    void testCreateMatrixWithUnrectArrayShouldThrow() {
+        assertThrows(MatrixException.class, () -> new Matrix(new double[][]{{1., 2.}, {0., 1., 2.}}));
+    }
+
     static Stream<Arguments> casesCreateMatrixWithGivenArrayShouldThrow() {
         Random r = new Random(5);
         return Stream.of(
@@ -87,7 +85,7 @@ class MatrixConstructorsTest {
         );
     }
 
-    static double[][] randomInit(Random r,  int rows, int cols) {
+    static double[][] randomInit(Random r, int rows, int cols) {
         double[][] doubles = new double[rows][];
         for (int i = 0; i < rows; i++) {
             doubles[i] = r.doubles(cols, -25., 25.).toArray();
