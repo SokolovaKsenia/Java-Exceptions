@@ -2,7 +2,7 @@ package com.epam.rd.qa.basicio;
 
 
 public class Matrix {
-    private final double[][] internalArray;
+    private final double[][] newArray;
     private final int rows;
     private final int cols;
 
@@ -20,7 +20,7 @@ public class Matrix {
         }
         this.rows = rows;
         this.cols = cols;
-        internalArray = new double[rows][cols];
+        newArray = new double[rows][cols];
     }
 
     /**
@@ -33,7 +33,6 @@ public class Matrix {
         if (values.length == 0 || values[0].length == 0) {
             throw new MatrixException();
         }
-
         rows = values.length;
         cols = values[0].length;
         for (int i = 0; i < rows; i += 1) {
@@ -41,7 +40,7 @@ public class Matrix {
                 throw new MatrixException();
             }
         }
-        internalArray = values;
+        newArray = values;
     }
 
     /**
@@ -74,7 +73,7 @@ public class Matrix {
         if (row < 0 || col < 0 || row >= rows || col >= cols) {
             throw new MatrixException();
         }
-        return internalArray[row][col];
+        return newArray[row][col];
     }
 
     /**
@@ -89,7 +88,7 @@ public class Matrix {
         if (row < 0 || col < 0 || row >= rows || col >= cols) {
             throw new MatrixException();
         }
-        internalArray[row][col] = value;
+        newArray[row][col] = value;
     }
 
     /**
@@ -99,7 +98,7 @@ public class Matrix {
      * @return matrix values
      */
     public double[][] toArray() {
-        return internalArray;
+        return newArray;
     }
 
     /**
@@ -115,14 +114,14 @@ public class Matrix {
             throw new MatrixException();
         }
 
-        Matrix resultMatrix = new Matrix(rows, cols);
+        Matrix resultM = new Matrix(rows, cols);
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                resultMatrix.set(i, j, internalArray[i][j] + other.get(i, j));
+                resultM.set(i, j, newArray[i][j] + other.get(i, j));
             }
         }
-        return resultMatrix;
+        return resultM;
     }
 
     /**
@@ -140,7 +139,7 @@ public class Matrix {
         Matrix resultMatrix = new Matrix(rows, cols);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                resultMatrix.set(i, j, internalArray[i][j] - other.get(i, j));
+                resultMatrix.set(i, j, newArray[i][j] - other.get(i, j));
             }
         }
         return resultMatrix;
@@ -156,24 +155,26 @@ public class Matrix {
      * @return new matrix
      * @throws MatrixException if matrices have non-compliant sizes
      */
-    public Matrix multiply(Matrix other) throws MatrixException {
+
+
+        public Matrix multiply(Matrix other) throws MatrixException {
         if (other == null || cols != other.getRows()) {
             throw new MatrixException();
         }
-        Matrix resultMatrix = new Matrix(rows, other.getColumns());
+        Matrix resultMat = new Matrix(rows, other.getColumns());
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < other.getColumns(); j++) {
-                resultMatrix.set(i, j, sumMultiplyRowColumn(i, j, other));
+                resultMat.set(i, j, sumMultiplyRowColumn(i, j, other));
             }
         }
-        return resultMatrix;
+        return resultMat;
     }
 
     private double sumMultiplyRowColumn(int rowIndex, int columnIndex, Matrix other) {
         double result = 0;
         for (int i = 0; i < cols; i++) {
-            result += internalArray[rowIndex][i] + other.get(i, columnIndex);
+            result += newArray[rowIndex][i] * other.get(i, columnIndex);
         }
         return result;
     }
